@@ -45,6 +45,14 @@ var checkpointCommand = cli.Command{
 			Name:  "work-path",
 			Usage: "path to criu work files and logs",
 		},
+		cli.StringFlag{
+			Name:  "parent-path",
+			Usage: "path for previous image files from a pre-dump",
+		},
+		cli.StringFlag{
+			Name:  "criu-page-server",
+			Usage: "CriuPageServer is the address:port for the criu page server",
+		},
 	},
 	Action: func(context *cli.Context) error {
 		id := context.Args().First()
@@ -85,6 +93,8 @@ func withCheckpointOpts(rt string, context *cli.Context) containerd.CheckpointTa
 	return func(r *containerd.CheckpointTaskInfo) error {
 		imagePath := context.String("image-path")
 		workPath := context.String("work-path")
+		parentPath := context.String("parent-path")
+		criuPageServer := context.String("criu-page-server")
 
 		switch rt {
 		case plugin.RuntimeRuncV1, plugin.RuntimeRuncV2:
@@ -102,6 +112,12 @@ func withCheckpointOpts(rt string, context *cli.Context) containerd.CheckpointTa
 			if workPath != "" {
 				opts.WorkPath = workPath
 			}
+			if parentPath != "" {
+				opts.ParentPath = parentPath
+			}
+			if criuPageServer != "" {
+				opts.CriuPageServer = criuPageServer
+			}
 		case plugin.RuntimeLinuxV1:
 			if r.Options == nil {
 				r.Options = &runctypes.CheckpointOptions{}
@@ -116,6 +132,12 @@ func withCheckpointOpts(rt string, context *cli.Context) containerd.CheckpointTa
 			}
 			if workPath != "" {
 				opts.WorkPath = workPath
+			}
+			if parentPath != "" {
+				opts.ParentPath = parentPath
+			}
+			if criuPageServer != "" {
+				opts.CriuPageServer = criuPageServer
 			}
 		}
 		return nil

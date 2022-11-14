@@ -39,6 +39,8 @@ message CheckpointOptions {
 	string cgroups_mode = 7;
 	string work_path = 8;
 	string image_path = 9;
+	string parent_path = 10;
+	string criu_page_server = 11;
 }
 
 message ProcessDetails {

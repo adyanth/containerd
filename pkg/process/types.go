@@ -63,4 +63,6 @@ type CheckpointConfig struct {
 	AllowTerminal            bool
 	FileLocks                bool
 	EmptyNamespaces          []string
+	ParentPath               string
+	CriuPageServer           string
 }

@@ -334,6 +334,8 @@ func (c *container) Checkpoint(ctx context.Context, ref string, opts ...Checkpoi
 		Terminal:            false,
 		FileLocks:           true,
 		EmptyNamespaces:     nil,
+		ParentPath:          "",
+		CriuPageServer:      "",
 	}
 	info, err := c.Info(ctx)
 	if err != nil {
