@@ -147,6 +147,20 @@ file {
       type: TYPE_STRING
       json_name: "workPath"
     }
+    field {
+      name: "parent_path"
+      number: 10
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "parentPath"
+    }
+    field {
+      name: "criu_page_server"
+      number: 11
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "criuPageServer"
+    }
   }
   message_type {
     name: "ProcessDetails"
