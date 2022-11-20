@@ -53,4 +53,6 @@ type Process interface {
 	Kill(context.Context, uint32, bool) error
 	// SetExited sets the exit status for the process
 	SetExited(status int)
+	// SetOpts sets the restore opts
+	SetOpts(checkpointDir string, openTcp, terminal, fileLocks bool)
 }

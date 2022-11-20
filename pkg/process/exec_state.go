@@ -40,6 +40,9 @@ type execCreatedState struct {
 	p *execProcess
 }
 
+func (s *execCreatedState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
+}
+
 func (s *execCreatedState) transition(name string) error {
 	switch name {
 	case "running":
@@ -93,6 +96,9 @@ type execRunningState struct {
 	p *execProcess
 }
 
+func (s *execRunningState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
+}
+
 func (s *execRunningState) transition(name string) error {
 	switch name {
 	case "stopped":
@@ -133,6 +139,9 @@ func (s *execRunningState) Status(ctx context.Context) (string, error) {
 
 type execStoppedState struct {
 	p *execProcess
+}
+
+func (s *execStoppedState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
 }
 
 func (s *execStoppedState) transition(name string) error {

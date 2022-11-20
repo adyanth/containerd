@@ -63,19 +63,23 @@ type Init struct {
 	io       *processIO
 	runtime  *runc.Runc
 	// pausing preserves the pausing state.
-	pausing      *atomicBool
-	status       int
-	exited       time.Time
-	pid          int
-	closers      []io.Closer
-	stdin        io.Closer
-	stdio        stdio.Stdio
-	Rootfs       string
-	IoUID        int
-	IoGID        int
-	NoPivotRoot  bool
-	NoNewKeyring bool
-	CriuWorkPath string
+	pausing       *atomicBool
+	status        int
+	exited        time.Time
+	pid           int
+	closers       []io.Closer
+	stdin         io.Closer
+	stdio         stdio.Stdio
+	Rootfs        string
+	IoUID         int
+	IoGID         int
+	NoPivotRoot   bool
+	NoNewKeyring  bool
+	CriuWorkPath  string
+	checkpointDir string
+	openTcp       bool
+	terminal      bool
+	fileLocks     bool
 }
 
 // NewRunc returns a new runc instance for a process
@@ -252,11 +256,19 @@ func (p *Init) Status(ctx context.Context) (string, error) {
 	return p.initState.Status(ctx)
 }
 
+func (p *Init) SetOpts(checkpointDir string, openTcp, terminal, fileLocks bool) {
+	p.checkpointDir = checkpointDir
+	p.openTcp = openTcp
+	p.terminal = terminal
+	p.fileLocks = fileLocks
+}
+
 // Start the init process
 func (p *Init) Start(ctx context.Context) error {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
+	p.initState.SetOpts(ctx, p.checkpointDir, p.openTcp, p.terminal, p.fileLocks)
 	return p.initState.Start(ctx)
 }
 

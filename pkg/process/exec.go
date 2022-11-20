@@ -61,6 +61,9 @@ type execProcess struct {
 	waitBlock chan struct{}
 }
 
+func (e *execProcess) SetOpts(checkpointDir string, openTcp, terminal, fileLocks bool) {
+}
+
 func (e *execProcess) Wait() {
 	<-e.waitBlock
 }

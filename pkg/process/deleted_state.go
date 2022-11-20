@@ -32,6 +32,9 @@ import (
 type deletedState struct {
 }
 
+func (s *deletedState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
+}
+
 func (s *deletedState) Pause(ctx context.Context) error {
 	return errors.New("cannot pause a deleted process")
 }

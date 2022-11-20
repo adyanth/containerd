@@ -40,10 +40,14 @@ type initState interface {
 	Kill(context.Context, uint32, bool) error
 	SetExited(int)
 	Status(context.Context) (string, error)
+	SetOpts(context.Context, string, bool, bool, bool)
 }
 
 type createdState struct {
 	p *Init
+}
+
+func (s *createdState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
 }
 
 func (s *createdState) transition(name string) error {
@@ -145,6 +149,13 @@ func (s *createdCheckpointState) Checkpoint(ctx context.Context, r *CheckpointCo
 	return errors.New("cannot checkpoint a task in created state")
 }
 
+func (s *createdCheckpointState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
+	s.opts.AllowOpenTCP = openTcp
+	s.opts.AllowTerminal = terminal
+	s.opts.FileLocks = fileLocks
+	s.opts.ImagePath = checkpointDir
+}
+
 func (s *createdCheckpointState) Start(ctx context.Context) error {
 	p := s.p
 	sio := p.stdio
@@ -223,6 +234,9 @@ type runningState struct {
 	p *Init
 }
 
+func (s *runningState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
+}
+
 func (s *runningState) transition(name string) error {
 	switch name {
 	case "stopped":
@@ -294,6 +308,9 @@ type pausedState struct {
 	p *Init
 }
 
+func (s *pausedState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
+}
+
 func (s *pausedState) transition(name string) error {
 	switch name {
 	case "running":
@@ -360,6 +377,9 @@ func (s *pausedState) Status(ctx context.Context) (string, error) {
 
 type stoppedState struct {
 	p *Init
+}
+
+func (s *stoppedState) SetOpts(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) {
 }
 
 func (s *stoppedState) transition(name string) error {

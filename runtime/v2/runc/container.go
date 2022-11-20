@@ -356,6 +356,7 @@ func (c *Container) Start(ctx context.Context, r *task.StartRequest) (process.Pr
 	if err != nil {
 		return nil, err
 	}
+	p.SetOpts(r.CheckpointDir, r.OpenTcp, r.Terminal, r.FileLocks)
 	if err := p.Start(ctx); err != nil {
 		return nil, err
 	}
