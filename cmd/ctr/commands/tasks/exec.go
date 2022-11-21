@@ -166,7 +166,7 @@ var execCommand = cli.Command{
 			return err
 		}
 
-		if err := process.Start(ctx); err != nil {
+		if err := process.Start(ctx, "", false, false, false); err != nil {
 			return err
 		}
 		if detach {

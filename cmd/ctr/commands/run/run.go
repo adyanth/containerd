@@ -222,7 +222,7 @@ var Command = cli.Command{
 				return err
 			}
 		}
-		if err := task.Start(ctx); err != nil {
+		if err := task.Start(ctx, "", false, false, false); err != nil {
 			return err
 		}
 		if detach {

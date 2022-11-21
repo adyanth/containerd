@@ -106,7 +106,7 @@ var densityCommand = cli.Command{
 					return err
 				}
 				defer t.Delete(ctx, containerd.WithProcessKill)
-				if err := t.Start(ctx); err != nil {
+				if err := t.Start(ctx, "", false, false, false); err != nil {
 					return err
 				}
 				pids = append(pids, t.Pid())

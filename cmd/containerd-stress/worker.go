@@ -100,7 +100,7 @@ func (w *worker) runContainer(ctx context.Context, id string) (err error) {
 	if err != nil {
 		return err
 	}
-	if err := task.Start(ctx); err != nil {
+	if err := task.Start(ctx, "", false, false, false); err != nil {
 		return err
 	}
 	status := <-statusC

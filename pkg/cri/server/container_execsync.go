@@ -169,7 +169,7 @@ func (c *criService) execInternal(ctx context.Context, container containerd.Cont
 	if err != nil {
 		return nil, fmt.Errorf("failed to wait for process %q: %w", execID, err)
 	}
-	if err := process.Start(ctx); err != nil {
+	if err := process.Start(ctx, "", false, false, false); err != nil {
 		return nil, fmt.Errorf("failed to start exec %q: %w", execID, err)
 	}
 

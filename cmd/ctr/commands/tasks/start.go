@@ -107,7 +107,7 @@ var startCommand = cli.Command{
 			}
 		}
 
-		if err := task.Start(ctx); err != nil {
+		if err := task.Start(ctx, "", false, false, false); err != nil {
 			return err
 		}
 		if detach {

@@ -64,7 +64,7 @@ func (w *execWorker) exec(ctx, tctx context.Context) {
 		return
 	}
 
-	if err := task.Start(ctx); err != nil {
+	if err := task.Start(ctx, "", false, false, false); err != nil {
 		logrus.WithError(err).Error("exec container start failure")
 		return
 	}
@@ -122,7 +122,7 @@ func (w *execWorker) runExec(ctx context.Context, task containerd.Task, id strin
 	if err != nil {
 		return err
 	}
-	if err := process.Start(ctx); err != nil {
+	if err := process.Start(ctx, "", false, false, false); err != nil {
 		return err
 	}
 	status := <-statusC

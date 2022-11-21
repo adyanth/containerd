@@ -66,7 +66,7 @@ func (s *startChange) apply(ctx context.Context, client *containerd.Client) erro
 	if err != nil {
 		return err
 	}
-	return task.Start(ctx)
+	return task.Start(ctx, "", false, false, false)
 }
 
 func killTask(ctx context.Context, container containerd.Container) error {

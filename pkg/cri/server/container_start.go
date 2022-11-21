@@ -161,7 +161,7 @@ func (c *criService) StartContainer(ctx context.Context, r *runtime.StartContain
 	}
 
 	// Start containerd task.
-	if err := task.Start(ctx); err != nil {
+	if err := task.Start(ctx, "", false, false, false); err != nil {
 		return nil, fmt.Errorf("failed to start containerd task %q: %w", id, err)
 	}
 

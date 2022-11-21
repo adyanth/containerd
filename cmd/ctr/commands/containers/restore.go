@@ -92,6 +92,6 @@ var restoreCommand = cli.Command{
 			return err
 		}
 
-		return task.Start(ctx)
+		return task.Start(ctx, "", false, false, false)
 	},
 }
