@@ -164,6 +164,11 @@ message UpdateTaskRequest {
 
 message StartRequest {
 	string id = 1;
+	string exec_id = 2;
+	string checkpoint_dir = 3;
+	bool open_tcp = 4;
+	bool terminal = 5;
+	bool file_locks = 6;
 }
 
 message StartResponse {

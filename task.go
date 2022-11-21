@@ -208,7 +208,11 @@ func (t *task) Pid() uint32 {
 
 func (t *task) Start(ctx context.Context) error {
 	r, err := t.client.TaskService().Start(ctx, &tasks.StartRequest{
-		ContainerID: t.id,
+		ContainerID:   t.id,
+		CheckpointDir: "",
+		OpenTcp:       false,
+		Terminal:      false,
+		FileLocks:     false,
 	})
 	if err != nil {
 		if t.io != nil {

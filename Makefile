@@ -170,13 +170,13 @@ generate: protos
 
 protos: bin/protoc-gen-gogoctrd ## generate protobuf
 	@echo "$(WHALE) $@"
-	@find . -path ./vendor -prune -false -o -name '*.pb.go' | xargs rm
+	#@find . -path ./vendor -prune -false -o -name '*.pb.go' | xargs rm
 	$(eval TMPDIR := $(shell mktemp -d))
-	@mv ${ROOTDIR}/vendor ${TMPDIR}
+	#@mv ${ROOTDIR}/vendor ${TMPDIR}
 	@(cd ${ROOTDIR}/api && PATH="${ROOTDIR}/bin:${PATH}" protobuild --quiet ${API_PACKAGES})
 	@(PATH="${ROOTDIR}/bin:${PATH}" protobuild --quiet ${NON_API_PACKAGES})
-	@mv ${TMPDIR}/vendor ${ROOTDIR}
-	@rm -rf ${TMPDIR}
+	#@mv ${TMPDIR}/vendor ${ROOTDIR}
+	#@rm -rf ${TMPDIR}
 
 check-protos: protos ## check if protobufs needs to be generated again
 	@echo "$(WHALE) $@"
