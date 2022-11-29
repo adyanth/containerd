@@ -112,10 +112,14 @@ func (p *process) CloseIO(ctx context.Context) error {
 }
 
 // Start the process
-func (p *process) Start(ctx context.Context) error {
+func (p *process) Start(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) error {
 	_, err := p.shim.task.Start(ctx, &task.StartRequest{
-		ID:     p.shim.ID(),
-		ExecID: p.id,
+		ID:            p.shim.ID(),
+		ExecID:        p.id,
+		OpenTcp:       openTcp,
+		Terminal:      terminal,
+		FileLocks:     fileLocks,
+		CheckpointDir: checkpointDir,
 	})
 	if err != nil {
 		return errdefs.FromGRPC(err)

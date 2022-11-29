@@ -124,7 +124,7 @@ func (t *Task) Delete(ctx context.Context) (*runtime.Exit, error) {
 }
 
 // Start the task
-func (t *Task) Start(ctx context.Context) error {
+func (t *Task) Start(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) error {
 	t.mu.Lock()
 	hasCgroup := t.cg != nil
 	t.mu.Unlock()

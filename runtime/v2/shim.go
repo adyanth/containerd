@@ -371,9 +371,13 @@ func (s *shimTask) Resume(ctx context.Context) error {
 	return nil
 }
 
-func (s *shimTask) Start(ctx context.Context) error {
+func (s *shimTask) Start(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) error {
 	_, err := s.task.Start(ctx, &task.StartRequest{
-		ID: s.ID(),
+		ID:            s.ID(),
+		OpenTcp:       openTcp,
+		Terminal:      terminal,
+		FileLocks:     fileLocks,
+		CheckpointDir: checkpointDir,
 	})
 	if err != nil {
 		return errdefs.FromGRPC(err)

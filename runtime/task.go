@@ -44,7 +44,7 @@ type Process interface {
 	// CloseIO closes the processes IO
 	CloseIO(ctx context.Context) error
 	// Start the container's user defined process
-	Start(ctx context.Context) error
+	Start(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) error
 	// Wait for the process to exit
 	Wait(ctx context.Context) (*Exit, error)
 }

@@ -122,7 +122,7 @@ func (p *Process) CloseIO(ctx context.Context) error {
 }
 
 // Start the process
-func (p *Process) Start(ctx context.Context) error {
+func (p *Process) Start(ctx context.Context, checkpointDir string, openTcp, terminal, fileLocks bool) error {
 	r, err := p.t.shim.Start(ctx, &shim.StartRequest{
 		ID: p.id,
 	})

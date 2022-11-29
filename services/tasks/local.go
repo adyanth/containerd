@@ -254,7 +254,7 @@ func (l *local) Start(ctx context.Context, r *api.StartRequest, _ ...grpc.CallOp
 			return nil, errdefs.ToGRPC(err)
 		}
 	}
-	if err := p.Start(ctx); err != nil {
+	if err := p.Start(ctx, r.CheckpointDir, r.OpenTcp, r.Terminal, r.FileLocks); err != nil {
 		return nil, errdefs.ToGRPC(err)
 	}
 	state, err := p.State(ctx)
