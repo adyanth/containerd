@@ -438,7 +438,8 @@ func (p *Init) Checkpoint(ctx context.Context, r *CheckpointConfig) error {
 func (p *Init) checkpoint(ctx context.Context, r *CheckpointConfig) error {
 	var actions []runc.CheckpointAction
 	if !r.Exit {
-		actions = append(actions, runc.LeaveRunning)
+		// actions = append(actions, runc.LeaveRunning)
+		actions = append(actions, runc.PreDump)
 	}
 	// keep criu work directory if criu work dir is set
 	work := r.WorkDir
